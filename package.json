@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "A simple microservice for fetching gaming related news using the Gamespot API.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src --exec NODE_OPTIONS='--import=./register.js' node --no-warnings src/index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Matthew Anderson",
@@ -15,6 +18,7 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
