@@ -1,4 +1,4 @@
-# gaming-news-microservice
+# Gaming News Microservice
 
 A simple microservice for fetching gaming related news using the Gamespot API.
 
@@ -60,7 +60,7 @@ async function getArticles() {
 Here is an example of the data if processed using the previous function:
 
 ```json
-result = [
+[
     {
         "title":"Lego Game Boy Reportedly Will Cost $60 And Releases This October",
         "description":"The new set looks to be based on the original version of the classic gaming handheld.",
