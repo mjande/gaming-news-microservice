@@ -1,7 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import "dotenv/config";
-import dayjs from "dayjs";
-import { ApiResponse, convertToDateRangeQuery } from "./utils.js";
+import { ApiResponse, getDateRangeParam } from "./utils.js";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -12,9 +11,10 @@ app.use(express.json());
 // Routes
 app.get("/articles", async (req: Request, res: Response) => {
   // Extract parameters from request
-  const limit = req.query.limit?.toString();
-  const endDate = req.query.date ? dayjs(req.query.date.toString()) : dayjs();
-  const dateQuery = convertToDateRangeQuery(endDate, 3);
+  const { limit, date } = req.query;
+
+  const limitParam = limit ? limit.toString() : "10";
+  const dateParam = getDateRangeParam(3, date?.toString());
 
   // Get API key from environment variables
   const apiKey = process.env.API_KEY;
@@ -25,9 +25,9 @@ app.get("/articles", async (req: Request, res: Response) => {
   // Build parameters for API request
   const searchParams = new URLSearchParams({
     format: "json",
-    limit: limit ?? "10",
+    limit: limitParam,
     field_list: "title,deck,site_detail_url",
-    filter: dateQuery,
+    filter: dateParam,
     sort: "publish_date:desc",
     api_key: apiKey,
   });
